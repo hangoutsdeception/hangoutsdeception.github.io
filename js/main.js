@@ -266,40 +266,48 @@ function hideGamePanel() {
 	logger('hideGamePanel: implement');
 }
 
-// returns an object where the keys are Person.id and the values are Role.id
-function assignRoles() {
-	var players = getPlayers(),
-		selectedRoles = getSelectedRoles(),
-		possibleRoles = [],
-		distribution = roleDistribution[players.length],
-		assignments = {};
+function pickRoles(numPlayers) {
+	// TODO there must be 1 non-special baddie
+	// TODO there is always 1 oracle, 1 azazel
+	// TODO remove distribution fall back
 
-	logger('Selected Roles', roles);
-	logger('Players', players);
+	var selectedRoles = getSelectedRoles(),
+		pickedRoles = [],
+		distribution = roleDistribution[numPlayers] || {
+			good: numPlayers / 2,
+			bad: (numPlayers - 1) / 2
+		};
 
 	if (!distribution) {
 		logger('wrong number of players!');
 		return null;
 	}
 
-	// TODO there must be 1 non-special baddie
-	// TODO there is always 1 merlin, 1 assassin
-
-	// pick the roles
 	$.each(disribution, function(key, value) {
 		var subsetOfRoles = selectedRoles[key],
 			random;
 		for (; value > 0; value--) {
 			if (subsetOfRoles.length > 0) {
 				random = Math.floor(Math.random() * (roles.length - 1));
-				possibleRoles.push(subsetOfRoles[random]);
+				pickedRoles.push(subsetOfRoles[random]);
 				subsetOfRoles.splice(random, 1);
 			} else {
 				// Ran out of selected, use the default role
-				possibleRoles.push(roles[name][0]);
+				pickedRoles.push(roles[name][0]);
 			}
 		}
 	});
+
+	return pickedRoles;
+}
+
+// returns an object where the keys are Person.id and the values are Role.id
+function assignRoles() {
+	var players = getPlayers(),
+		pickedRoles = pickRoles(players.length),
+		assignments = {};
+
+	logger('Players', players);
 	
 	players.forEach(function(player) {
 		var random = Math.floor(Math.random() * (possibleRoles.length - 1));
@@ -398,7 +406,7 @@ function startHandler() {
 	logger('Starting game');
 
 	var assignments = assignRoles();
-	logger('assigned roles', assignRoles);
+	logger('assigned roles', assignments);
 //	changeState($.extend(buildPlayerRoleMap(assignments), buildHasGameStarted(true)));
 }
 
