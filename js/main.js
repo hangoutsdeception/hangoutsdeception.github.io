@@ -1,6 +1,8 @@
 // gapi can be loaded later
 (function(window, gadgets, $) {
 
+var root = '#main';
+
 function logger() {
 	if (DEBUG && console && console.log) {
 		console.log.apply(console, arguments);
@@ -36,25 +38,21 @@ function init() {
 }
 
 function initState() {
-	var me = gapi.hangout.getLocalParticipantId();
+	var me = getMe();
 	logger('My id', me);
 
 	// register state listeners
 	gapi.hangout.data.onStateChanged.add(stateChangedHandler);
 	
 	// if admin not set, set current user as admin
-	logger('Current admin', gapi.hangout.data.getValue('admin'));
-	if (!gapi.hangout.data.getValue('admin')) {
+	logger('Current admin', getAdmin());
+	if (!getAdmin()) {
 		logger('Setting admin as me...');
-		gapi.hangout.data.setValue('admin', me);
+		setAdmin(me);
 	}
-
-	logger(gapi.hangout.data.getState());
 }
 
 function initDom() {
-	var root = '#main';
-
 	$('<button id="showParticipants">')
 		.text('Show Participants')
 		.click(showParticipants)
@@ -65,9 +63,50 @@ function initDom() {
 		.appendTo(root);
 }
 
+function initAdminPanel() {
+	var $admin = $('<div id="admin">')
+		.text('TODO');
+	
+	$admin.prependTo(root);
+}
+
+function showAdminPanel() {
+	var $root = $(root);
+
+	if ($root.find('#admin').size() == 0) {
+		initAdminPanel();
+	}
+	
+	$('#admin')
+		.css('visibility', 'visible');
+}
+
+function hideAdminPanel() {
+	$('#admin')
+		.css('visibility', 'hidden');
+}
+
+function isAdmin() {
+	var me = getMe(),
+		admin = getAdmin();
+	return me === admin;
+}
+
+function getMe() {
+	return gapi.hangout.getLocalParticipantId();
+}
+
+function getAdmin() {
+	return gapi.hangout.data.getValue('admin');
+}
+
+function setAdmin(value) {
+	return gapi.hangout.data.setValue('admin', value);
+}
+
 function apiReadyHandler(event) {
 	if (event.isApiReady) {
-		logger('ME!', gapi.hangout.getLocalParticipantId());
+		logger('ME!', getMe());
 		initState();
 		//$('#showParticipants')
 		//	.css('visibility', 'visible');
@@ -78,6 +117,11 @@ function apiReadyHandler(event) {
 function stateChangedHandler(event) {
 	// TODO implement
 	logger('stateChangedHandler', event);
+	logger(gapi.hangout.data.getState());
+	
+	if (isAdmin()) {
+		showAdminPanel();
+	}
 }
 
 window.DEBUG = true;
