@@ -1,6 +1,10 @@
 // gapi may be loaded later
 (function(window, gadgets, $) {
 
+// TODO enable start when enough roles are selected for number of people
+// TODO update admin as people join/leave hangout
+// TODO role definitions
+
 var root = '#main',
 	roles = {
 		good: [
@@ -44,6 +48,7 @@ function initState() {
 			setAdmin(me);
 		} else if (isAdmin()) {
 			showAdminPanel();
+			hideWaitingPanel();
 		} else {
 			hideAdminPanel();
 			showWaitingPanel();
@@ -61,7 +66,7 @@ function initAdminPanel() {
 	var $admin = $('<div id="admin">'),
 		$element;
 
-	$admin.prependTo(root);
+	$admin.appendTo(root);
 
 	//header
 	$('<h1>')
@@ -179,11 +184,24 @@ function updateAdminPanel() {
 }
 
 function initWaitingPanel() {
-	logger('initWaitingPanel: implement');
+	var $waiting = $('<div id="waiting">');
+	$waiting.appendTo(root);
+
+	$('<span>')
+		.text('Waiting for')
+		.appendTo($waiting);
+
+	$('<span data-name="adminDisplay">')
+		.appendTo($waiting);
+
+	$('<span>')
+		.text(' to start the game...')
+		.appendTo($waiting);
 }
 
 function updateWaitingPanel() {
-	logger('updateWaitingPanel: implement');
+	$('#waiting [data-name="adminDisplay"]')
+		.text(getDisplayNameForId(getAdmin()));
 }
 
 function showAdminPanel() {
@@ -267,6 +285,21 @@ function getPlayers() {
 	return gapi.hangout.getEnabledParticipants();
 }
 
+function getDisplayNameForId(id) {
+	var players = getPlayers() || [],
+		player,
+		index;
+
+	for (index = 0; index < players.length; index++) {
+		player = players[i];
+		if (player.person.id === id) {
+			return player.person.displayName;
+		}
+	}
+
+	return '<Cannot find Admin>;
+}
+
 function getSelectedRoles() {
 	return {
 		good: [],
@@ -331,8 +364,10 @@ function stateChangedHandler(event) {
 			case 'admin.personId': {
 				if (isAdmin()) {
 					showAdminPanel();
+					hideWaitingPanel();
 				} else {
 					hideAdminPanel();
+					showWaitingPanel();
 				}
 				break;
 			}
