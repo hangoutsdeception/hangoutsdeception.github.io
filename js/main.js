@@ -160,7 +160,7 @@ function updateAdminPanel() {
 	logger('players', players);
 
 	$root.find('[data-name="numPlayers"]')
-		.text(players ? players.length || 0);
+		.text(players ? players.length : 0);
 
 	$list.empty();
 	if (players) {
