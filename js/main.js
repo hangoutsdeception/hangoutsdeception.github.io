@@ -116,10 +116,11 @@ function populateRoles() {
 		var $element = $('<li>'),
 			$label = $('<label>')
 				.text(role);
+
 		$('<input>')
 			.attr('type', 'checkbox')
 			.attr('name', 'goodRole')
-			.append($label);
+			.appendTo($label);
 
 		$label.appendTo($element);
 		$element.appendTo($list);
@@ -132,10 +133,11 @@ function populateRoles() {
 		var $element = $('<li>'),
 			$label = $('<label>')
 				.text(role);
+
 		$('<input>')
 			.attr('type', 'checkbox')
 			.attr('name', 'badRole')
-			.append($label);
+			.appendTo($label);
 
 		$label.appendTo($element);
 		$element.appendTo($list);
