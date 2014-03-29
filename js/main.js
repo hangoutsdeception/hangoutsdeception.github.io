@@ -37,16 +37,18 @@ function init() {
 
 function initState() {
 	var me = gapi.hangout.getLocalParticipantId();
+	logger('My id', me);
 
 	// register state listeners
 	gapi.hangout.data.onStateChanged.add(stateChangedHandler);
-
+	
 	// if admin not set, set current user as admin
+	logger('Current admin', gapi.hangout.data.getValue('admin'));
 	if (gapi.hangout.data.getValue('admin')) {
+		logger('Setting admin as me...');
 		gapi.hangout.data.setValue('admin', me);
 	}
 
-	logger('My id', me);
 	logger(gapi.hangout.data.getState());
 }
 
