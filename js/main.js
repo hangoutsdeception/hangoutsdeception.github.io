@@ -283,12 +283,14 @@ function pickRoles(numPlayers) {
 		return null;
 	}
 
-	$.each(disribution, function(key, value) {
+	$.each(distribution, function(key, value) {
 		var subsetOfRoles = selectedRoles[key],
 			random;
+
 		for (; value > 0; value--) {
 			if (subsetOfRoles.length > 0) {
 				random = Math.floor(Math.random() * (roles.length - 1));
+
 				pickedRoles.push(subsetOfRoles[random]);
 				subsetOfRoles.splice(random, 1);
 			} else {
