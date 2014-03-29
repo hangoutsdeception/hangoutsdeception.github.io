@@ -297,7 +297,7 @@ function getDisplayNameForId(id) {
 		}
 	}
 
-	return '<Cannot find Admin>;
+	return '<Cannot find Admin>';
 }
 
 function getSelectedRoles() {
