@@ -120,7 +120,7 @@ function populateRoles() {
 		$('<input>')
 			.attr('type', 'checkbox')
 			.attr('name', 'goodRole')
-			.appendTo($label);
+			.prependTo($label);
 
 		$label.appendTo($element);
 		$element.appendTo($list);
@@ -137,7 +137,7 @@ function populateRoles() {
 		$('<input>')
 			.attr('type', 'checkbox')
 			.attr('name', 'badRole')
-			.appendTo($label);
+			.prependTo($label);
 
 		$label.appendTo($element);
 		$element.appendTo($list);
