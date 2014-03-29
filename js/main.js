@@ -211,7 +211,7 @@ function setAdmin(value) {
 }
 
 function getPlayers() {
-	return gapi.hangouts.getEnabledParticipants();
+	return gapi.hangout.getEnabledParticipants();
 }
 
 function apiReadyHandler(event) {
@@ -230,6 +230,8 @@ function stateChangedHandler(event) {
 	
 	if (isAdmin()) {
 		showAdminPanel();
+	} else {
+		hideAdminPanel();
 	}
 }
 
