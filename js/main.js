@@ -95,7 +95,7 @@ function initAdminPanel() {
 	$element.appendTo($admin);
 
 	$('<span>')
-		.text('# players')
+		.text('# players: ')
 		.appendTo($element);
 
 	$('<span data-name="numPlayers">')
@@ -170,7 +170,7 @@ function updateAdminPanel() {
 	if (players) {
 		players.forEach(function(player) {
 			$('<li>')
-				.text(player.displayName)
+				.text(player.person.displayName)
 				.appendTo($list);
 		});
 	}
