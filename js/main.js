@@ -1,9 +1,9 @@
 // gapi can be loaded later
 (function(window, gadgets, $) {
 
-function logger(logs) {
+function logger() {
 	if (DEBUG && console && console.log) {
-		console.log(logs || logs.join(' '));
+		console.log.apply(null, arguments);
 	}
 }
 
@@ -41,9 +41,8 @@ function initState() {
 	// register state listeners
 	gapi.hangout.data.onStateChanged.add(stateChangedHandler);
 
-	// is admin set
+	// if admin not set, set current user as admin
 	if (gapi.hangout.data.getValue('admin')) {
-		// if not set current user as admin
 		gapi.hangout.data.setValue('admin', me);
 	}
 
@@ -66,9 +65,11 @@ function initDom() {
 
 function apiReadyHandler(event) {
 	if (event.isApiReady) {
+		logger('ME!', gapi.hangout.getLocalParticipantId());
 		initState();
-		$('#showParticipants')
-			.css('visibility', 'visible');
+		//$('#showParticipants')
+		//	.css('visibility', 'visible');
+		showParticipants();
 	}
 }
 
