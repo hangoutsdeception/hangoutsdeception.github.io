@@ -291,7 +291,7 @@ function getDisplayNameForId(id) {
 		index;
 
 	for (index = 0; index < players.length; index++) {
-		player = players[i];
+		player = players[index];
 		if (player.person.id === id) {
 			return player.person.displayName;
 		}
