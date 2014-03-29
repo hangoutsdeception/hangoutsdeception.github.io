@@ -44,7 +44,7 @@ function initState() {
 	
 	// if admin not set, set current user as admin
 	logger('Current admin', gapi.hangout.data.getValue('admin'));
-	if (gapi.hangout.data.getValue('admin')) {
+	if (!gapi.hangout.data.getValue('admin')) {
 		logger('Setting admin as me...');
 		gapi.hangout.data.setValue('admin', me);
 	}
