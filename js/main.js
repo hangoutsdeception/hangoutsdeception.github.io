@@ -310,11 +310,12 @@ function assignRoles() {
 		assignments = {};
 
 	logger('Players', players);
-	
+	logger('Picked Roles', pickedRoles);
+
 	players.forEach(function(player) {
-		var random = Math.floor(Math.random() * (possibleRoles.length - 1));
-		assignments[player.person.id] = possibleRoles[random];
-		possibleRoles.splice(random, 1);
+		var random = Math.floor(Math.random() * (pickedRoles.length - 1));
+		assignments[player.person.id] = pickedRoles[random];
+		pickedRoles.splice(random, 1);
 	});
 
 	return assignments;
