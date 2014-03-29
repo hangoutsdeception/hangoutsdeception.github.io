@@ -61,6 +61,10 @@ function initState() {
 	if (!getAdmin()) {
 		logger('Setting admin as me...');
 		setAdmin(me);
+	} else if (isAdmin()) {
+		showAdminPanel();
+	} else {
+		hideAdminPanel();
 	}
 }
 
