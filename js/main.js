@@ -64,10 +64,59 @@ function initDom() {
 }
 
 function initAdminPanel() {
-	var $admin = $('<div id="admin">')
-		.text('TODO');
-	
+	var $admin = $('<div id="admin">'),
+		$element;
+
 	$admin.prependTo(root);
+
+	//header
+	$('<h1>')
+		.text('Game Master')
+		.appendTo($admin);
+
+	// number of players
+	$element = $('<div>');
+	$element.appendTo($admin);
+	
+	$('<span>')
+		.text('# players')
+		.appendTo($element);
+	
+	$('<span data-name="numPlayers">')
+		.appendTo($element);
+	
+	// player list
+	$element = $('<div>');
+	$element.appendTo($admin);
+	
+	$('<span>')
+		.text('Players:')
+		.appendTo($element);
+	
+	$('<ul data-name="playersList">')
+		.appendTo($element);
+		
+	// roles
+	$element = $('<div>');
+	$element.appendTo($admin);
+	
+	$('<span>')
+		.text('Good')
+		.appendTo($element);
+	
+	$('<ul data-name="goodRoles">')
+		.appendTo($element);
+	
+	$('<span>')
+		.text('Bad')
+		.appendTo($element);
+	
+	$('<ul data-name="badRoles">')
+		.appendTo($element);
+}
+
+function updateAdminPanel() {
+	
 }
 
 function showAdminPanel() {
@@ -77,6 +126,8 @@ function showAdminPanel() {
 		initAdminPanel();
 	}
 	
+	updateAdminPanel();
+
 	$('#admin')
 		.css('visibility', 'visible');
 }
@@ -93,7 +144,8 @@ function isAdmin() {
 }
 
 function getMe() {
-	return gapi.hangout.getLocalParticipantId();
+	return gapi.hangout.getLocalParticipant().person.id;
+	//return gapi.hangout.getLocalParticipantId();
 }
 
 function getAdmin() {
@@ -115,7 +167,6 @@ function apiReadyHandler(event) {
 }
 
 function stateChangedHandler(event) {
-	// TODO implement
 	logger('stateChangedHandler', event);
 	logger(gapi.hangout.data.getState());
 	
