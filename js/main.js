@@ -326,29 +326,31 @@ function stateChangedHandler(event) {
 	logger('stateChangedHandler', event);
 	logger(event.state);
 
-	switch (event.addedKeys) {
-		case 'admin.personId': {
-			if (isAdmin()) {
-				showAdminPanel();
-			} else {
-				hideAdminPanel();
+	event.addedKeys.forEach(function(meta) {
+		switch (meta.key) {
+			case 'admin.personId': {
+				if (isAdmin()) {
+					showAdminPanel();
+				} else {
+					hideAdminPanel();
+				}
+				break;
 			}
-			break;
+			case 'admin.hasGameStarted': {
+				// TODO implement
+				logger('todo change ui');
+				break;
+			}
+			case 'admin.playerRoleMap': {
+				// TODO implement
+				logger('show roles based on role types');
+				break;
+			}
+			default: {
+				// do nothing
+			}
 		}
-		case 'admin.hasGameStarted': {
-			// TODO implement
-			logger('todo change ui');
-			break;
-		}
-		case 'admin.playerRoleMap': {
-			// TODO implement
-			logger('show roles based on role types');
-			break;
-		}
-		default: {
-			// do nothing
-		}
-	}
+	});
 }
 
 window.DEBUG = true;
