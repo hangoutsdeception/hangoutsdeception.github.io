@@ -17,12 +17,27 @@ var root = '#main',
 			'Baddie 2',
 			'Baddie Leader'
 		]
+	},
+	roleDistribution = {
+		5: createGoodBadPair(3, 2),
+		6: createGoodBadPair(4, 2),
+		7: createGoodBadPair(4, 3),
+		8: createGoodBadPair(5, 3),
+		9: createGoodBadPair(6, 3),
+		10: createGoodBadPair(6, 4)
 	};
 
 function logger() {
 	if (DEBUG && console && console.log) {
 		console.log.apply(console, arguments);
 	}
+}
+
+function createGoodBadPair(good, bad) {
+	return {
+		good: good,
+		bad: bad
+	};
 }
 
 function init() {
@@ -188,7 +203,7 @@ function initWaitingPanel() {
 	$waiting.appendTo(root);
 
 	$('<span>')
-		.text('Waiting for')
+		.text('Waiting for ')
 		.appendTo($waiting);
 
 	$('<span data-name="adminDisplay">')
@@ -242,6 +257,9 @@ function hideWaitingPanel() {
 
 function showGamePanel() {
 	logger('showGamePanel: implement');
+	$('<div>')
+		.text('Playing The Game')
+		.appendTo(root);
 }
 
 function hideGamePanel() {
@@ -251,14 +269,45 @@ function hideGamePanel() {
 // returns an object where the keys are Person.id and the values are Role.id
 function assignRoles() {
 	var players = getPlayers(),
-		roles = getSelectedRoles();
+		selectedRoles = getSelectedRoles(),
+		possibleRoles = [],
+		distribution = roleDistribution[players.length],
+		assignments = {};
 
-	// TODO assign one role per player without repeats
-	// counts for total goodies and badies is preset based on number of players
-	// there must be 1 non-special baddie
-	// there is always 1 merlin, 1 assassin
+	logger('Selected Roles', roles);
+	logger('Players', players);
 
-	return {};
+	if (!distribution) {
+		logger('wrong number of players!');
+		return null;
+	}
+
+	// TODO there must be 1 non-special baddie
+	// TODO there is always 1 merlin, 1 assassin
+
+	// pick the roles
+	$.each(disribution, function(key, value) {
+		var subsetOfRoles = selectedRoles[key],
+			random;
+		for (; value > 0; value--) {
+			if (subsetOfRoles.length > 0) {
+				random = Math.floor(Math.random() * (roles.length - 1));
+				possibleRoles.push(subsetOfRoles[random]);
+				subsetOfRoles.splice(random, 1);
+			} else {
+				// Ran out of selected, use the default role
+				possibleRoles.push(roles[name][0]);
+			}
+		}
+	});
+	
+	players.forEach(function(player) {
+		var random = Math.floor(Math.random() * (possibleRoles.length - 1));
+		assignments[player.person.id] = possibleRoles[random];
+		possibleRoles.splice(random, 1);
+	});
+
+	return assignments;
 }
 
 //
@@ -302,9 +351,16 @@ function getDisplayNameForId(id) {
 
 function getSelectedRoles() {
 	return {
-		good: [],
-		bad: []
+		good: extractSelectedRoles('goodRole'),
+		bad: extractSelectedRoles('badRole')
 	};
+}
+
+function extractSelectedRoles(name) {
+	return $(root).find('[name="' + name + '"]:checked')
+		.map(function() {
+			return $(this).val();
+		});
 }
 
 function getPlayerRoleMap() {
@@ -342,7 +398,8 @@ function startHandler() {
 	logger('Starting game');
 
 	var assignments = assignRoles();
-	changeState($.extend(buildPlayerRoleMap(assignments), buildHasGameStarted(true)));
+	logger('assigned roles', assignRoles);
+//	changeState($.extend(buildPlayerRoleMap(assignments), buildHasGameStarted(true)));
 }
 
 //
@@ -372,8 +429,7 @@ function stateChangedHandler(event) {
 				break;
 			}
 			case 'admin.hasGameStarted': {
-				// TODO implement
-				logger('todo change ui');
+				showGamePanel();
 				break;
 			}
 			case 'admin.playerRoleMap': {
