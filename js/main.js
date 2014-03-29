@@ -21,27 +21,6 @@ function logger() {
 	}
 }
 
-function showParticipants() {
-	var participants = gapi.hangout.getParticipants();
-
-	var retVal = '<p>Participants: </p><ul>';
-
-	for (var index in participants) {
-		var participant = participants[index];
-		
-		if (!participant.person) {
-			retVal += '<li>A participant not running this app</li>';
-		}
-		retVal += '<li>' + participant.person.displayName + '</li>';
-	}
-
-	retVal += '</ul>';
-
-	var div = document.getElementById('participantsDiv');
-
-	div.innerHTML = retVal;
-}
-
 function init() {
 	initDom();
 
@@ -69,14 +48,7 @@ function initState() {
 }
 
 function initDom() {
-	$('<button id="showParticipants">')
-		.text('Show Participants')
-		.click(showParticipants)
-		.appendTo(root);
-
-	$('<div id="participantsDiv">')
-		.css('visiblility', 'hidden')
-		.appendTo(root);
+	
 }
 
 function initAdminPanel() {
@@ -141,18 +113,32 @@ function populateRoles() {
 	$list = $root.find('[data-name="goodRoles"]')
 		.empty();
 	roles.good.forEach(function(role) {
-		$('<li>')
-			.text(role)
-			.appendTo($list);
+		var $element = $('<li>'),
+			$label = $('<label>')
+				.text(role);
+		$('<input>')
+			.attr('type', 'checkbox')
+			.attr('name', 'goodRole')
+			.append($label);
+
+		$label.appendTo($element);
+		$element.appendTo($list);
 	});
 
 	// good roles
 	$list = $root.find('[data-name="badRoles"]')
 		.empty();
 	roles.bad.forEach(function(role) {
-		$('<li>')
-			.text(role)
-			.appendTo($list);
+		var $element = $('<li>'),
+			$label = $('<label>')
+				.text(role);
+		$('<input>')
+			.attr('type', 'checkbox')
+			.attr('name', 'badRole')
+			.append($label);
+
+		$label.appendTo($element);
+		$element.appendTo($list);
 	});
 }
 
@@ -220,11 +206,7 @@ function getPlayers() {
 
 function apiReadyHandler(event) {
 	if (event.isApiReady) {
-		logger('ME!', getMe());
 		initState();
-		//$('#showParticipants')
-		//	.css('visibility', 'visible');
-		showParticipants();
 	}
 }
 
