@@ -3,7 +3,7 @@
 
 function logger() {
 	if (DEBUG && console && console.log) {
-		console.log.apply(this, arguments);
+		console.log.apply(console, arguments);
 	}
 }
 
