@@ -1,4 +1,4 @@
-// gapi can be loaded later
+// gapi may be loaded later
 (function(window, gadgets, $) {
 
 var root = '#main',
@@ -37,19 +37,25 @@ function initState() {
 	
 	// if admin not set, set current user as admin
 	logger('Current admin', getAdmin());
-	if (!getAdmin()) {
-		logger('Setting admin as me...');
-		setAdmin(me);
-	} else if (isAdmin()) {
-		showAdminPanel();
+	
+	if (!hasGameStarted()) {
+		if (!getAdmin()) {
+			logger('Setting admin as me...');
+			setAdmin(me);
+		} else if (isAdmin()) {
+			showAdminPanel();
+		} else {
+			hideAdminPanel();
+			showWaitingPanel();
+		}
 	} else {
 		hideAdminPanel();
+		hideWaitingPanel();
+		showGamePanel();
 	}
 }
 
-function initDom() {
-	
-}
+function initDom() {}
 
 function initAdminPanel() {
 	var $admin = $('<div id="admin">'),
@@ -103,6 +109,12 @@ function initAdminPanel() {
 		.appendTo($element);
 
 	populateRoles();
+
+	// start game button
+	$('<button>')
+		.text('Start!')
+		.click(startHandler)
+		.appendTo($root);
 }
 
 function populateRoles() {
@@ -112,6 +124,7 @@ function populateRoles() {
 	// good roles
 	$list = $root.find('[data-name="goodRoles"]')
 		.empty();
+
 	roles.good.forEach(function(role) {
 		var $element = $('<li>'),
 			$label = $('<label>')
@@ -129,6 +142,7 @@ function populateRoles() {
 	// good roles
 	$list = $root.find('[data-name="badRoles"]')
 		.empty();
+
 	roles.bad.forEach(function(role) {
 		var $element = $('<li>'),
 			$label = $('<label>')
@@ -162,7 +176,14 @@ function updateAdminPanel() {
 				.appendTo($list);
 		});
 	}
-	
+}
+
+function initWaitingPanel() {
+	logger('initWaitingPanel: implement');
+}
+
+function updateWaitingPanel() {
+	logger('updateWaitingPanel: implement');
 }
 
 function showAdminPanel() {
@@ -183,28 +204,117 @@ function hideAdminPanel() {
 		.css('visibility', 'hidden');
 }
 
+function showWaitingPanel() {
+	var $root = $(root);
+
+	if ($root.find('#waiting').size() == 0) {
+		initWaitingPanel();
+	}
+
+	updateWaitingPanel();
+
+	$('#waiting')
+		.css('visibility', 'visible');
+}
+
+function hideWaitingPanel() {
+	$('#waiting')
+		.css('visibility', 'hidden');
+}
+
+function showGamePanel() {
+	logger('showGamePanel: implement');
+}
+
+function hideGamePanel() {
+	logger('hideGamePanel: implement');
+}
+
+// returns an object where the keys are Person.id and the values are Role.id
+function assignRoles() {
+	var players = getPlayers(),
+		roles = getSelectedRoles();
+
+	// TODO assign one role per player without repeats
+	// counts for total goodies and badies is preset based on number of players
+	// there must be 1 non-special baddie
+	// there is always 1 merlin, 1 assassin
+
+	return {};
+}
+
+//
+// Accessor and accessor helpers
+//
+
 function isAdmin() {
-	var me = getMe(),
-		admin = getAdmin();
-	return me === admin;
+	return getMe() === getAdmin();
 }
 
 function getMe() {
 	return gapi.hangout.getLocalParticipant().person.id;
-	//return gapi.hangout.getLocalParticipantId();
 }
 
 function getAdmin() {
-	return gapi.hangout.data.getValue('admin');
+	return gapi.hangout.data.getValue('admin.personId');
 }
 
 function setAdmin(value) {
-	return gapi.hangout.data.setValue('admin', value);
+	return gapi.hangout.data.setValue('admin.personId', value);
 }
 
 function getPlayers() {
 	return gapi.hangout.getEnabledParticipants();
 }
+
+function getSelectedRoles() {
+	return {
+		good: [],
+		bad: []
+	};
+}
+
+function getPlayerRoleMap() {
+	var string = gapi.hangout.data.getValue('admin.playerRoleMap');
+	return $.parseJSON(string);
+}
+
+// build state object for playerRoleMap
+function buildPlayerRoleMap(value) {
+	return {
+		'admin.playerRoleMap': JSON.stringify(value)
+	};
+}
+
+function hasGameStarted() {
+	return gapi.hangout.data.getValue('admin.hasGameStarted') === 'true';
+}
+
+// build state object for hasGameStarted
+function buildHasGameStarted(value) {
+	return {
+		'admin.hasGameStarted': ''+value
+	};
+}
+
+function changeState(changes) {
+	gapi.hangout.data.submitDelta(changes, []);
+}
+
+//
+// User Interaction Handlers
+//
+
+function startHandler() {
+	logger('Starting game');
+
+	var assignments = assignRoles();
+	changeState($.extend(buildPlayerRoleMap(assignments), buildHasGameStarted(true)));
+}
+
+//
+// Hangout Handlers
+//
 
 function apiReadyHandler(event) {
 	if (event.isApiReady) {
@@ -214,12 +324,30 @@ function apiReadyHandler(event) {
 
 function stateChangedHandler(event) {
 	logger('stateChangedHandler', event);
-	logger(gapi.hangout.data.getState());
-	
-	if (isAdmin()) {
-		showAdminPanel();
-	} else {
-		hideAdminPanel();
+	logger(event.state);
+
+	switch (event.addedKeys) {
+		case 'admin.personId': {
+			if (isAdmin()) {
+				showAdminPanel();
+			} else {
+				hideAdminPanel();
+			}
+			break;
+		}
+		case 'admin.hasGameStarted': {
+			// TODO implement
+			logger('todo change ui');
+			break;
+		}
+		case 'admin.playerRoleMap': {
+			// TODO implement
+			logger('show roles based on role types');
+			break;
+		}
+		default: {
+			// do nothing
+		}
 	}
 }
 
