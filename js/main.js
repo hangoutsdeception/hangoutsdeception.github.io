@@ -1,7 +1,19 @@
 // gapi can be loaded later
 (function(window, gadgets, $) {
 
-var root = '#main';
+var root = '#main',
+	roles = {
+		good: [
+			'Goodie 1',
+			'Goodie 2',
+			'Goodie Leader'
+		],
+		bad: [
+			'Baddie 1',
+			'Baddie 2',
+			'Baddie Leader'
+		]
+	};
 
 function logger() {
 	if (DEBUG && console && console.log) {
@@ -77,45 +89,87 @@ function initAdminPanel() {
 	// number of players
 	$element = $('<div>');
 	$element.appendTo($admin);
-	
+
 	$('<span>')
 		.text('# players')
 		.appendTo($element);
-	
+
 	$('<span data-name="numPlayers">')
 		.appendTo($element);
-	
+
 	// player list
 	$element = $('<div>');
 	$element.appendTo($admin);
-	
+
 	$('<span>')
 		.text('Players:')
 		.appendTo($element);
-	
-	$('<ul data-name="playersList">')
+
+	$('<ul data-name="playerList">')
 		.appendTo($element);
-		
+
 	// roles
 	$element = $('<div>');
 	$element.appendTo($admin);
-	
+
 	$('<span>')
 		.text('Good')
 		.appendTo($element);
-	
+
 	$('<ul data-name="goodRoles">')
 		.appendTo($element);
-	
+
 	$('<span>')
 		.text('Bad')
 		.appendTo($element);
-	
+
 	$('<ul data-name="badRoles">')
 		.appendTo($element);
+
+	populateRoles();
+}
+
+function populateRoles() {
+	var $root = $(root),
+		$list;
+
+	// good roles
+	$list = $root.find('[data-name="goodRoles"]')
+		.empty();
+	roles.good.forEach(function(role) {
+		$('<li>')
+			.text(role)
+			.appendTo($list);
+	});
+
+	// good roles
+	$list = $root.find('[data-name="badRoles"]')
+		.empty();
+	roles.bad.forEach(function(role) {
+		$('<li>')
+			.text(role)
+			.appendTo($list);
+	});
 }
 
 function updateAdminPanel() {
+	var $root = $(root),
+		players = getPlayers(),
+		$list = $root.find('[data-name="playerList"]');
+
+	logger('players', players);
+
+	$root.find('[data-name="numPlayers"]')
+		.text(players ? players.length || 0);
+
+	$list.empty();
+	if (players) {
+		players.forEach(function(player) {
+			$('<li>')
+				.text(player.displayName)
+				.appendTo($list);
+		});
+	}
 	
 }
 
@@ -154,6 +208,10 @@ function getAdmin() {
 
 function setAdmin(value) {
 	return gapi.hangout.data.setValue('admin', value);
+}
+
+function getPlayers() {
+	return gapi.hangouts.getEnabledParticipants();
 }
 
 function apiReadyHandler(event) {
