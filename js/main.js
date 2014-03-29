@@ -114,7 +114,7 @@ function initAdminPanel() {
 	$('<button>')
 		.text('Start!')
 		.click(startHandler)
-		.appendTo($root);
+		.appendTo(root);
 }
 
 function populateRoles() {
