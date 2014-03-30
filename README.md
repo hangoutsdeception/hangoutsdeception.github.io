@@ -1,7 +1,7 @@
 hangoutsdeception.github.io
 ===========================
 
-### Keys required to close portals
+### Keys required to seal portals
 
 | Players | Good | Bad | | Portal 1 | Portal 2 | Portal 3 | Portal 4 | Portal 5 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -12,8 +12,8 @@ hangoutsdeception.github.io
 | 9 | 6 | 3 | | 3 | 4 | 4 | 5 * | 5 |
 | 10 | 6 | 4 | | 3 | 4 | 4 | 5 * | 5 |
 
-`& all good required to close portal`
-`* 1 missing key will still close portal`
+`& all good required to seal portal`
+`* 1 missing key will not prevent sealing`
 
 
 ### Roles
