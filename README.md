@@ -1,2 +1,34 @@
 hangoutsdeception.github.io
 ===========================
+
+### Keys required to close portals
+
+| Players | Good | Bad | | Portal 1 | Portal 2 | Portal 3 | Portal 4 | Portal 5 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 5 | 3 | 2 | | 2 | 3 & | 2 | 3 & | 3 & |
+| 6 | 4 | 2 | | 2 | 3 | 4 & | 3 | 4 & |
+| 7 | 4 | 3 | | 2 | 3 | 3 | 4 * | 4 & |
+| 8 | 5 | 3 | | 3 | 4 | 4 | 5 * | 5 & |
+| 9 | 6 | 3 | | 3 | 4 | 4 | 5 * | 5 |
+| 10 | 6 | 4 | | 3 | 4 | 4 | 5 * | 5 |
+
+`& all good required to close portal`
+`* 1 missing key will still close portal`
+
+
+### Roles
+
+| Role | Alignment | Role colors | Can see colors |
+| --- | --- | --- | --- |
+| Sentinel | Good | blue | |
+| Oracle * | Good | blue, purple | red, yellowASred |
+| Paladin | Good | blue | purple |
+| Wraith | Bad | red | red, orangeASred |
+| Azazel * | Bad | red | red, orangeASred |
+| Succubus | Bad | red, purple | red, orangeASred |
+| Lucifer + | Bad | orange | red |
+| Lilith  + | Bad | orange, purple | red |
+| Zombie | Bad | yellow | |
+
+`* Oracle XNOR Azazel`
+`+ Lucifer NAND Lilith`
