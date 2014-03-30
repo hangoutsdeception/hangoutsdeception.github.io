@@ -285,18 +285,12 @@ function pickRoles(numPlayers) {
 
 	$.each(distribution, function(key, value) {
 		var subsetOfRoles = selectedRoles[key],
-			random;
+			count;
+		
+		pickedRoles = pickedRoles.concat(subsetOfRoles);
 
-		for (; value > 0; value--) {
-			if (subsetOfRoles.length > 0) {
-				random = Math.floor(Math.random() * (roles.length - 1));
-
-				pickedRoles.push(subsetOfRoles[random]);
-				subsetOfRoles.splice(random, 1);
-			} else {
-				// Ran out of selected, use the default role
-				pickedRoles.push(roles[name][0]);
-			}
+		for (count = value - selectedRoles.length; count > 0; count--) {
+			pickedRoles.push(roles[name][0]);
 		}
 	});
 
