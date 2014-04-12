@@ -125,8 +125,8 @@ function populateRoles() {
 	$roles.empty();
 
 	$.each(teams(), function(id, team) {
-		var inputName = id + 'Roles',
-			$list = $('<ul>');
+		var listName = id + 'Roles',
+			$list = $('<ul data-name="' + listName + '">');
 
 		$('<span>')
 			.text(team.name)
@@ -158,7 +158,7 @@ function populateRoles() {
 
 			$('<input>')
 				.attr('type', 'checkbox')
-				.attr('name', inputName)
+				.attr('name', role.id)
 				.prependTo($label);
 		});
 	});
@@ -221,7 +221,7 @@ function showAdminPanel() {
 
 function participantsChangedHandler() {
 	if (hasGameStarted() || !isAdmin()) {
-		logger("Game has already started or I am not Admin")
+		logger("Game has already started or I am not Admin");
 		return;
 	}
 	updateAdminPanel();
@@ -270,7 +270,7 @@ function pickRoles(numPlayers) {
 		distribution = roleDistribution[numPlayers];
 
 	if (DEV && !distribution) {
-		distribution = createTeamTuple(numPlayers / 2, (numPlayers - 1) / 2);
+		distribution = createTeamTuple(1, 1);
 	}
 
 	if (!distribution) {
@@ -278,8 +278,8 @@ function pickRoles(numPlayers) {
 		return null;
 	}
 
-	logger(selectedRoles);
-	logger(distribution);
+	logger('Selected roles', selectedRoles);
+	logger('Distribution', distribution);
 
 	$.each(distribution, function(key, value) {
 		var subsetOfRoles = selectedRoles[key],
@@ -363,9 +363,9 @@ function getSelectedRoles() {
 }
 
 function extractSelectedRoles(name) {
-	return $(root).find('[name="' + name + '"]:checked')
+	return $(root).find('[data-name="' + name + '"] :checked')
 		.map(function() {
-			return $(this).val();
+			return $(this).attr('name');
 		});
 }
 
