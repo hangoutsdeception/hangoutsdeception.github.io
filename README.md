@@ -12,11 +12,12 @@ hangoutsdeception.github.io
 | 9 | 6 | 3 | | 3 | 4 | 4 | 5 * | 5 |
 | 10 | 6 | 4 | | 3 | 4 | 4 | 5 * | 5 |
 
-`& all good required to seal portal`
+`& perfect Bastion selection required to seal portal`
 `* 1 missing key will not prevent sealing`
 
 
 ### Colors
+
 | Color | Display color |
 | --- | --- |
 | blue | blue |
@@ -25,6 +26,12 @@ hangoutsdeception.github.io
 | yellow | red |
 | orange | red |
 
+
+### Teams
+
+| Name | Description |
+| The Bastion | The bastion of men |
+| The Legion | The legion of hell |
 
 ### Roles
 
