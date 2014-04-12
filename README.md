@@ -16,19 +16,29 @@ hangoutsdeception.github.io
 `* 1 missing key will not prevent sealing`
 
 
+### Colors
+| Color | Display color |
+| --- | --- |
+| blue | blue |
+| purple | purple |
+| red | red |
+| yellow | red |
+| orange | red |
+
+
 ### Roles
 
-| Role | Alignment | Role colors | Can see colors |
+| Role | Alignment | Is | Knows |
 | --- | --- | --- | --- |
 | Sentinel | Bastion | blue | |
-| Oracle * | Bastion | blue, purple | red, yellowASred |
+| Oracle * | Bastion | purple | red, yellow |
 | Paladin | Bastion | blue | purple |
-| Wraith | Legion | red | red, orangeASred |
-| Azazel * | Legion | red | red, orangeASred |
-| Succubus | Legion | red, purple | red, orangeASred |
+| Wraith | Legion | red | red, orange |
+| Azazel * | Legion | red | red, orange |
+| Succubus + | Legion | red, purple | red, orange |
 | Lucifer + | Legion | orange | red |
 | Lilith  + | Legion | orange, purple | red |
 | Zombie | Legion | yellow | |
 
 `* Oracle XNOR Azazel`
-`+ Lucifer NAND Lilith`
+`+ NOT ( Lilith AND ( Succubus OR Lucifer ) )`
