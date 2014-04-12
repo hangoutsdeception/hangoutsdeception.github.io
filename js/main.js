@@ -131,9 +131,9 @@ function populateRoles() {
 
 		$('<span>')
 			.text(team.name)
-			.appendTo($element);
+			.appendTo($roles);
 
-		$list.appendTo($element);
+		$list.appendTo($roles);
 
 		team.members.forEach(function(roleId) {
 			var role = getRole(roleId),
