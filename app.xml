@@ -7,7 +7,6 @@ Only authorized users are allowed to read/use/modify this software.
 	<ModulePrefs title="Hangouts Deception">
 		<Require feature="rpc" />
 		<Require feature="views" />
-		<Require feature="locked-domain" />
 	</ModulePrefs>
 	<Content type="html"><![CDATA[
 <!-- Domain: //hangoutsdeception.github.io/ -->
