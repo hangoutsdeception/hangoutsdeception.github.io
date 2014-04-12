@@ -143,7 +143,7 @@ function populateRoles() {
 	var $root = $(root),
 		$list;
 
-	$.forEach(teams(), function(id, team) {
+	$.each(teams(), function(id, team) {
 		var inputName = team.type + 'Roles',
 			$list = $root.find('[data-name="' + inputName + '"]');
 
