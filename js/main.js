@@ -150,9 +150,14 @@ function populateRoles() {
 		$list.empty();
 
 		team.members.forEach(function(roleId) {
+			logger(roleId);
 			var role = getRole(roleId),
 				$element = $('<li>'),
 				$label = $('<label>');
+
+			if (!role) {
+				return;
+			}
 
 			$label
 				.text(role.name)
