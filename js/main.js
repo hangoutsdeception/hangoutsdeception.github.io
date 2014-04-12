@@ -104,22 +104,8 @@ function initAdminPanel() {
 		.appendTo($element);
 
 	// roles
-	$element = $('<div>');
+	$element = $('<div data-name="roles">');
 	$element.appendTo($admin);
-
-	$('<span>')
-		.text('Good')
-		.appendTo($element);
-
-	$('<ul data-name="goodRoles">')
-		.appendTo($element);
-
-	$('<span>')
-		.text('Bad')
-		.appendTo($element);
-
-	$('<ul data-name="badRoles">')
-		.appendTo($element);
 
 	populateRoles();
 
@@ -135,14 +121,19 @@ function populateRoles() {
 		return;
 	}
 
-	var $root = $(root),
-		$list;
+	var $roles = $(root).find('[data-name="roles"]');
+
+	$roles.empty();
 
 	$.each(teams(), function(id, team) {
-		var inputName = team.type + 'Roles',
-			$list = $root.find('[data-name="' + inputName + '"]');
+		var inputName = id + 'Roles',
+			$list = $('<ul>');
 
-		$list.empty();
+		$('<span>')
+			.text(team.name)
+			.appendTo($element);
+
+		$list.appendTo($element);
 
 		team.members.forEach(function(roleId) {
 			var role = getRole(roleId),

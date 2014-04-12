@@ -51,7 +51,7 @@ data.roles = {
 		name: "Wraith",
 		is: ["red"],
 		knows: ["red", "orange"],
-        allowMultiple: true
+		allowMultiple: true
 	},
 	azazel: {
 		id: "azazel",
