@@ -2,19 +2,18 @@
 (function(window, gadgets, $) {
 
 // TODO enable start when enough roles are selected for number of people
-// TODO update admin as people join/leave hangout
 
-var DEV = true,		// true if in development
+var DEV = true,			// true if in development
 
 	root = '#main',
 
 	roleDistribution = {
-		5: createGoodBadPair(3, 2),
-		6: createGoodBadPair(4, 2),
-		7: createGoodBadPair(4, 3),
-		8: createGoodBadPair(5, 3),
-		9: createGoodBadPair(6, 3),
-		10: createGoodBadPair(6, 4)
+		5: createTeamTuple(3, 2),
+		6: createTeamTuple(4, 2),
+		7: createTeamTuple(4, 3),
+		8: createTeamTuple(5, 3),
+		9: createTeamTuple(6, 3),
+		10: createTeamTuple(6, 4)
 	};
 
 function logger() {
@@ -23,13 +22,11 @@ function logger() {
 	}
 }
 
-// helper for creating roleDistribution
-// for each number of players, there will be this many
-// good and bad players
-function createGoodBadPair(good, bad) {
+// helper for creating a common tuple
+function createTeamTuple(bastion, legion) {
 	return {
-		good: good,
-		bad: bad
+		bastion: bastion,
+		legion: legion
 	};
 }
 
@@ -46,10 +43,10 @@ function initState() {
 
 	// register state listeners
 	gapi.hangout.data.onStateChanged.add(stateChangedHandler);
-	
+
 	// if admin not set, set current user as admin
 	logger('Current admin', getAdmin());
-	
+
 	if (!hasGameStarted()) {
 		if (!getAdmin()) {
 			logger('Setting admin as me...');
@@ -105,7 +102,9 @@ function initAdminPanel() {
 
 	// roles
 	$element = $('<div data-name="roles">');
-	$element.appendTo($admin);
+	$element
+		.on('change', ':checkbox', adminRolesChangedHandler)
+		.appendTo($admin);
 
 	populateRoles();
 
@@ -142,8 +141,12 @@ function populateRoles() {
 				$element = $('<li>'),
 				$label = $('<label>');
 
-			if (!role || role.allowMultiple) {
+			if (!role) {
 				logger(role, roleId, roles());
+				return;
+			}
+
+			if (role.allowMultiple) {
 				return;
 			}
 
@@ -208,7 +211,7 @@ function showAdminPanel() {
 	if ($root.find('#admin').size() == 0) {
 		initAdminPanel();
 	}
-	
+
 	updateAdminPanel();
 
 	$('#admin')
@@ -258,10 +261,7 @@ function pickRoles(numPlayers) {
 		distribution = roleDistribution[numPlayers];
 
 	if (DEV && !distribution) {
-		distribution = {
-			good: numPlayers / 2,
-			bad: (numPlayers - 1) / 2
-		};
+		distribution = createTeamTuple(numPlayers / 2, (numPlayers - 1) / 2);
 	}
 
 	if (!distribution) {
@@ -269,10 +269,13 @@ function pickRoles(numPlayers) {
 		return null;
 	}
 
+	logger(selectedRoles);
+	logger(distribution);
+
 	$.each(distribution, function(key, value) {
 		var subsetOfRoles = selectedRoles[key],
 			count;
-		
+
 		pickedRoles = pickedRoles.concat(subsetOfRoles);
 
 		for (count = value - selectedRoles.length; count > 0; count--) {
@@ -341,10 +344,13 @@ function getDisplayNameForId(id) {
 }
 
 function getSelectedRoles() {
-	return {
-		good: extractSelectedRoles('goodRole'),
-		bad: extractSelectedRoles('badRole')
-	};
+	var ret = {};
+
+	$.each(teams(), function(id) {
+		ret[id] = extractSelectedRoles(id + 'Roles');
+	});
+
+	return ret;
 }
 
 function extractSelectedRoles(name) {
@@ -400,6 +406,11 @@ function changeState(changes) {
 //
 // User Interaction Handlers
 //
+
+// Called when the role inputs in the Admin Panel change
+function adminRolesChangedHandler() {
+	logger('TODO implement Start button disabling based on role checks');
+}
 
 function startHandler() {
 	logger('Starting game');
