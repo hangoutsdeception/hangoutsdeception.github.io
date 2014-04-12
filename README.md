@@ -10,24 +10,13 @@ hangoutsdeception.github.io
 | The Legion | The legion of hell |
 
 
-### Colors
-
-| Color | Display color |
-| --- | --- |
-| blue | blue |
-| purple | purple |
-| red | red |
-| yellow | red |
-| orange | red |
-
-
 ### Roles
 
 | Role | Alignment | Is | Knows |
 | --- | --- | --- | --- |
-| Sentinel | Bastion | blue | |
+| Sentinel | Bastion | | |
 | Oracle * | Bastion | purple | red, yellow |
-| Paladin | Bastion | blue | purple |
+| Paladin | Bastion | | purple |
 | Wraith | Legion | red | red, orange |
 | Azazel * | Legion | red | red, orange |
 | Succubus + | Legion | red, purple | red, orange |
@@ -37,6 +26,16 @@ hangoutsdeception.github.io
 
 `* Oracle XNOR Azazel`
 `+ NOT ( Lilith AND ( Succubus OR Lucifer ) )`
+
+
+### Tags
+
+| Is | Perceived As |
+| --- | --- |
+| purple | purple |
+| red | red |
+| yellow | red |
+| orange | red |
 
 
 ### Keys required to seal portals
