@@ -371,7 +371,7 @@ function dataLoaded() {
 }
 
 function teams() {
-	return (window.HangoutsDeception && window.HangoutsDeception.teams) || [];
+	return (window.HangoutsDeception && window.HangoutsDeception.teams) || {};
 }
 
 function roles() {
@@ -379,6 +379,7 @@ function roles() {
 }
 
 function getRole(id) {
+	logger('Roles', roles());
 	return roles()[id];
 }
 
