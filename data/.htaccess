@@ -1,0 +1,6 @@
+<FileMatch "\.json$">
+	<IfModule mod_headers.c>
+		Header set Access-Control-Allow-Origin: http://hangoutsdeception.github.io
+	</IfModule>
+</FileMatch>
+
