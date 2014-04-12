@@ -366,7 +366,7 @@ function extractSelectedRoles(teamId) {
 		})
 		.get();
 
-	ret.push(getFillerRole(teamId));
+	ret = ret.concat(getFillerRole(teamId));
 
 	return ret;
 }
