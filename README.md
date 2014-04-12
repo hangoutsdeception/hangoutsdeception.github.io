@@ -20,15 +20,15 @@ hangoutsdeception.github.io
 
 | Role | Alignment | Role colors | Can see colors |
 | --- | --- | --- | --- |
-| Sentinel | Good | blue | |
-| Oracle * | Good | blue, purple | red, yellowASred |
-| Paladin | Good | blue | purple |
-| Wraith | Bad | red | red, orangeASred |
-| Azazel * | Bad | red | red, orangeASred |
-| Succubus | Bad | red, purple | red, orangeASred |
-| Lucifer + | Bad | orange | red |
-| Lilith  + | Bad | orange, purple | red |
-| Zombie | Bad | yellow | |
+| Sentinel | Bastion | blue | |
+| Oracle * | Bastion | blue, purple | red, yellowASred |
+| Paladin | Bastion | blue | purple |
+| Wraith | Legion | red | red, orangeASred |
+| Azazel * | Legion | red | red, orangeASred |
+| Succubus | Legion | red, purple | red, orangeASred |
+| Lucifer + | Legion | orange | red |
+| Lilith  + | Legion | orange, purple | red |
+| Zombie | Legion | yellow | |
 
 `* Oracle XNOR Azazel`
 `+ Lucifer NAND Lilith`
