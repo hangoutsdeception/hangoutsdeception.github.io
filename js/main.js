@@ -213,9 +213,18 @@ function showAdminPanel() {
 	}
 
 	updateAdminPanel();
+	gapi.hangout.onEnabledParticipantsChanged.add(participantsChangedHandler);
 
 	$('#admin')
 		.css('visibility', 'visible');
+}
+
+function participantsChangedHandler() {
+	if (hasGameStarted() || !isAdmin()) {
+		logger("Game has already started or I am not Admin")
+		return;
+	}
+	updateAdminPanel();
 }
 
 function hideAdminPanel() {
