@@ -143,40 +143,28 @@ function populateRoles() {
 	var $root = $(root),
 		$list;
 
-	// good roles
-	$list = $root.find('[data-name="goodRoles"]')
-		.empty();
+	$.forEach(teams(), function(id, team) {
+		var inputName = team.type + 'Roles',
+			$list = $root.find('[data-name="' + inputName + '"]');
 
-	roles.good.forEach(function(role) {
-		var $element = $('<li>'),
-			$label = $('<label>')
-				.text(role);
+		$list.empty();
 
-		$('<input>')
-			.attr('type', 'checkbox')
-			.attr('name', 'goodRole')
-			.prependTo($label);
+		team.members.forEach(function(roleId) {
+			var role = getRole(roleId),
+				$element = $('<li>'),
+				$label = $('<label>');
 
-		$label.appendTo($element);
-		$element.appendTo($list);
-	});
+			$label
+				.text(role.name)
+				.appendTo($element);
 
-	// good roles
-	$list = $root.find('[data-name="badRoles"]')
-		.empty();
+			$element.appendTo($list);
 
-	roles.bad.forEach(function(role) {
-		var $element = $('<li>'),
-			$label = $('<label>')
-				.text(role);
-
-		$('<input>')
-			.attr('type', 'checkbox')
-			.attr('name', 'badRole')
-			.prependTo($label);
-
-		$label.appendTo($element);
-		$element.appendTo($list);
+			$('<input>')
+				.attr('type', 'checkbox')
+				.attr('name', inputName)
+				.prependTo($label);
+		});
 	});
 }
 
@@ -382,6 +370,18 @@ function dataLoaded() {
 	return window.HangoutsDeception && window.HangoutsDeception.dataLoaded;
 }
 
+function teams() {
+	return (window.HangoutsDeception && window.HangoutsDeception.teams) || [];
+}
+
+function roles() {
+	return (window.HangoutsDeception && window.HangoutsDeception.roles) || {};
+}
+
+function getRole(id) {
+	return roles()[id];
+}
+
 // build state object for playerRoleMap
 function buildPlayerRoleMap(value) {
 	return {
@@ -402,18 +402,6 @@ function buildHasGameStarted(value) {
 
 function changeState(changes) {
 	gapi.hangout.data.submitDelta(changes, []);
-}
-
-//
-// AJAX Handlers
-//
-
-function roleDataSuccessHandler(data) {
-	console.log('Success!', data);
-}
-
-function roleDataFailHandler() {
-	// TODO implement
 }
 
 //
