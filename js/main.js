@@ -5,19 +5,13 @@
 // TODO update admin as people join/leave hangout
 // TODO role definitions
 
+// CONSTANTS
+
+var DEV = true;
+
 var root = '#main',
-	roles = {
-		good: [
-			'Goodie 1',
-			'Goodie 2',
-			'Goodie Leader'
-		],
-		bad: [
-			'Baddie 1',
-			'Baddie 2',
-			'Baddie Leader'
-		]
-	},
+	rolesUrl = 'data/roles.json',
+	roles = [],
 	roleDistribution = {
 		5: createGoodBadPair(3, 2),
 		6: createGoodBadPair(4, 2),
@@ -33,6 +27,9 @@ function logger() {
 	}
 }
 
+// helper for creating roleDistribution
+// for each number of players, there will be this many
+// good and bad players
 function createGoodBadPair(good, bad) {
 	return {
 		good: good,
@@ -41,10 +38,21 @@ function createGoodBadPair(good, bad) {
 }
 
 function init() {
+	initData();
 	initDom();
 
 	// When API is ready...
 	gapi.hangout.onApiReady.add(apiReadyHandler);
+}
+
+function initData() {
+	$.ajax({
+		url: rolesUrl,
+		cache: DEV,
+		dataType: 'json'
+	})
+	.success(roleDataSuccessHandler)
+	.fail(roleDataFailHandler);
 }
 
 function initState() {
@@ -138,6 +146,10 @@ function initAdminPanel() {
 }
 
 function populateRoles() {
+	if (!roles) {
+		return;
+	}
+
 	var $root = $(root),
 		$list;
 
@@ -269,14 +281,17 @@ function hideGamePanel() {
 function pickRoles(numPlayers) {
 	// TODO there must be 1 non-special baddie
 	// TODO there is always 1 oracle, 1 azazel
-	// TODO remove distribution fall back
 
 	var selectedRoles = getSelectedRoles(),
 		pickedRoles = [],
-		distribution = roleDistribution[numPlayers] || {
+		distribution = roleDistribution[numPlayers];
+
+	if (DEV && !distribution) {
+		distribution = {
 			good: numPlayers / 2,
 			bad: (numPlayers - 1) / 2
 		};
+	}
 
 	if (!distribution) {
 		logger('wrong number of players!');
@@ -393,6 +408,18 @@ function buildHasGameStarted(value) {
 
 function changeState(changes) {
 	gapi.hangout.data.submitDelta(changes, []);
+}
+
+//
+// AJAX Handlers
+//
+
+function roleDataSuccessHandler(data) {
+	console.log('Success!', data);
+}
+
+function roleDataFailHandler() {
+	// TODO implement
 }
 
 //
