@@ -392,7 +392,7 @@ function roles() {
 	return (window.HangoutsDeception && window.HangoutsDeception.roles) || {};
 }
 
-function getTeam() {
+function getTeam(id) {
 	return teams()[id];
 }
 
