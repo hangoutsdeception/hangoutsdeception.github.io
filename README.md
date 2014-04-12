@@ -1,19 +1,13 @@
 hangoutsdeception.github.io
 ===========================
 
-### Keys required to seal portals
 
-| Players | Good | Bad | | Portal 1 | Portal 2 | Portal 3 | Portal 4 | Portal 5 |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 5 | 3 | 2 | | 2 | 3 & | 2 | 3 & | 3 & |
-| 6 | 4 | 2 | | 2 | 3 | 4 & | 3 | 4 & |
-| 7 | 4 | 3 | | 2 | 3 | 3 | 4 * | 4 & |
-| 8 | 5 | 3 | | 3 | 4 | 4 | 5 * | 5 & |
-| 9 | 6 | 3 | | 3 | 4 | 4 | 5 * | 5 |
-| 10 | 6 | 4 | | 3 | 4 | 4 | 5 * | 5 |
+### Teams
 
-`& perfect Bastion selection required to seal portal`
-`* 1 missing key will not prevent sealing`
+| Name | Description |
+| --- | --- |
+| The Bastion | The bastion of men |
+| The Legion | The legion of hell |
 
 
 ### Colors
@@ -26,12 +20,6 @@ hangoutsdeception.github.io
 | yellow | red |
 | orange | red |
 
-
-### Teams
-
-| Name | Description |
-| The Bastion | The bastion of men |
-| The Legion | The legion of hell |
 
 ### Roles
 
@@ -49,3 +37,18 @@ hangoutsdeception.github.io
 
 `* Oracle XNOR Azazel`
 `+ NOT ( Lilith AND ( Succubus OR Lucifer ) )`
+
+
+### Keys required to seal portals
+
+| Players | Good | Bad | | Portal 1 | Portal 2 | Portal 3 | Portal 4 | Portal 5 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 5 | 3 | 2 | | 2 | 3 & | 2 | 3 & | 3 & |
+| 6 | 4 | 2 | | 2 | 3 | 4 & | 3 | 4 & |
+| 7 | 4 | 3 | | 2 | 3 | 3 | 4 * | 4 & |
+| 8 | 5 | 3 | | 3 | 4 | 4 | 5 * | 5 & |
+| 9 | 6 | 3 | | 3 | 4 | 4 | 5 * | 5 |
+| 10 | 6 | 4 | | 3 | 4 | 4 | 5 * | 5 |
+
+`& perfect Bastion selection required to seal portal`
+`* 1 missing key will not prevent sealing`
