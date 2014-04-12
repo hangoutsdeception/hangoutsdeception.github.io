@@ -3,16 +3,11 @@
 
 // TODO enable start when enough roles are selected for number of people
 // TODO update admin as people join/leave hangout
-// TODO role definitions
 
-// CONSTANTS
-
-var DEV = true,
+var DEV = true,		// true if in development
 
 	root = '#main',
-	rootUrl = '//hangoutsdeception.github.io/',
 
-	rolesUrl = rootUrl + 'data/roles.json',
 	roleDistribution = {
 		5: createGoodBadPair(3, 2),
 		6: createGoodBadPair(4, 2),
@@ -150,11 +145,11 @@ function populateRoles() {
 		$list.empty();
 
 		team.members.forEach(function(roleId) {
-			logger(roleId);
 			var role = getRole(roleId),
 				$element = $('<li>'),
 				$label = $('<label>');
 
+			logger(role, roleId, roles());
 			if (!role) {
 				return;
 			}
@@ -384,7 +379,6 @@ function roles() {
 }
 
 function getRole(id) {
-	logger('Roles', roles());
 	return roles()[id];
 }
 
