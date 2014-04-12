@@ -7,11 +7,13 @@
 
 // CONSTANTS
 
-var DEV = true;
+var DEV = true,
 
-var root = '#main',
-	rolesUrl = 'data/roles.json',
-	roles = [],
+	root = '#main',
+	rootUrl = '//hangoutsdeception.github.io/',
+
+	rolesUrl = rootUrl + 'data/roles.json',
+	roles = null,
 	roleDistribution = {
 		5: createGoodBadPair(3, 2),
 		6: createGoodBadPair(4, 2),
