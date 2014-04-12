@@ -38,58 +38,51 @@ data.roles = {
 		id: "paladin",
 		name: "Paladin",
 		is: [],
-		knows: ["purple"],
-		allowMultiple: false
+		knows: ["purple"]
 	},
 	oracle: {
 		id: "oracle",
 		name: "Oracle",
 		is: ["purple"],
-		knows: ["red", "yellow"],
-		allowMultiple: false
+		knows: ["red", "yellow"]
 	},
 	wraith: {
 		id: "wraith",
 		name: "Wraith",
 		is: ["red"],
 		knows: ["red", "orange"],
-		allowMultiple: true
+        allowMultiple: true
 	},
 	azazel: {
 		id: "azazel",
 		name: "Azazel",
 		is: ["red"],
 		knows: ["red", "orange"],
-		allowMultiple: false,
 		finalKiller: true
 	},
 	succubus: {
 		id: "succubus",
 		name: "Succubus",
 		is: ["red", "purple"],
-		knows: ["red", "orange"],
-		allowMultiple: false
+		knows: ["red", "orange"]
 	},
-	lucifier: {
+	lucifer: {
 		id: "lucifer",
 		name: "Lucifer",
 		is: ["orange"],
-		knows: ["red"],
-		allowMultiple: false
+		knows: ["red"]
 	},
 	lilith: {
 		id: "lilith",
 		name: "Lilith",
 		is: ["orange", "purple"],
-		knows: ["red"],
-		allowMultiple: false
+		knows: ["red"]
 	},
 	zombie: {
 		id: "zombie",
 		name: "Zombie",
 		is: ["yellow"],
-		knows: [],
-		allowMultiple: false
+		knows: []
 	}
 };
 
