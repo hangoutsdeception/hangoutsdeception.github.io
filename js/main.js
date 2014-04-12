@@ -366,7 +366,8 @@ function extractSelectedRoles(name) {
 	return $(root).find('[data-name="' + name + '"] :checked')
 		.map(function() {
 			return $(this).attr('name');
-		});
+		})
+		.get();
 }
 
 function getPlayerRoleMap() {
