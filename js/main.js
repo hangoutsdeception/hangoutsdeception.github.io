@@ -13,7 +13,6 @@ var DEV = true,
 	rootUrl = '//hangoutsdeception.github.io/',
 
 	rolesUrl = rootUrl + 'data/roles.json',
-	roles = null,
 	roleDistribution = {
 		5: createGoodBadPair(3, 2),
 		6: createGoodBadPair(4, 2),
@@ -40,21 +39,10 @@ function createGoodBadPair(good, bad) {
 }
 
 function init() {
-	initData();
 	initDom();
 
 	// When API is ready...
 	gapi.hangout.onApiReady.add(apiReadyHandler);
-}
-
-function initData() {
-	$.ajax({
-		url: rolesUrl,
-		cache: DEV,
-		dataType: 'json'
-	})
-	.success(roleDataSuccessHandler)
-	.fail(roleDataFailHandler);
 }
 
 function initState() {
@@ -148,7 +136,7 @@ function initAdminPanel() {
 }
 
 function populateRoles() {
-	if (!roles) {
+	if (!dataLoaded()) {
 		return;
 	}
 
@@ -388,6 +376,10 @@ function extractSelectedRoles(name) {
 function getPlayerRoleMap() {
 	var string = gapi.hangout.data.getValue('admin.playerRoleMap');
 	return $.parseJSON(string);
+}
+
+function dataLoaded() {
+	return window.HangoutsDeception && window.HangoutsDeception.dataLoaded;
 }
 
 // build state object for playerRoleMap

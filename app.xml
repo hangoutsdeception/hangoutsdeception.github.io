@@ -22,6 +22,7 @@ Only authorized users are allowed to read/use/modify this software.
 <script>window.jQuery || document.write('<script src="//hangoutsdeception.github.io/js/vendor/jquery-2.1.0.min.js"><\/script>')</script>
 
 <script src="//plus.google.com/hangouts/_/api/v1/hangout.js"></script>
+<script src="//hangoutsdeception.github.io/js/data.js"></script>
 <script src="//hangoutsdeception.github.io/js/main.js"></script>
 
 </body>
