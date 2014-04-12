@@ -44,7 +44,7 @@ data.roles = {
 	oracle: {
 		id: "oracle",
 		name: "Oracle",
-		is: ["purple"]
+		is: ["purple"],
 		knows: ["red", "yellow"],
 		allowMultiple: false
 	},
@@ -58,7 +58,7 @@ data.roles = {
 	azazel: {
 		id: "azazel",
 		name: "Azazel",
-		is: ["red"]
+		is: ["red"],
 		knows: ["red", "orange"],
 		allowMultiple: false,
 		finalKiller: true
