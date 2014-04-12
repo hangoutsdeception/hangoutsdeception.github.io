@@ -86,6 +86,4 @@ data.roles = {
 	}
 };
 
-data.dataLoaded = true;
-
 }(window));

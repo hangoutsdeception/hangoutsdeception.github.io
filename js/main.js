@@ -116,9 +116,6 @@ function initAdminPanel() {
 }
 
 function populateRoles() {
-	if (!dataLoaded()) {
-		return;
-	}
 
 	var $roles = $(root).find('[data-name="roles"]');
 
@@ -373,10 +370,6 @@ function extractSelectedRoles(name) {
 function getPlayerRoleMap() {
 	var string = gapi.hangout.data.getValue('admin.playerRoleMap');
 	return $.parseJSON(string);
-}
-
-function dataLoaded() {
-	return window.HangoutsDeception && window.HangoutsDeception.dataLoaded;
 }
 
 function teams() {
