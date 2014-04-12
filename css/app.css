@@ -1,3 +1,4 @@
-#main {
-	
+.no-bullets li {
+	margin-left: -1.3em;
+	list-style-type: none;
 }

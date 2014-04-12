@@ -133,15 +133,17 @@ function populateRoles() {
 			.text(team.name)
 			.appendTo($roles);
 
-		$list.appendTo($roles);
+		$list
+			.addClass('no-bullets')
+			.appendTo($roles);
 
 		team.members.forEach(function(roleId) {
 			var role = getRole(roleId),
 				$element = $('<li>'),
 				$label = $('<label>');
 
-			logger(role, roleId, roles());
-			if (!role) {
+			if (!role || role.allowMultiple) {
+				logger(role, roleId, roles());
 				return;
 			}
 
