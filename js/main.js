@@ -210,15 +210,15 @@ function showAdminPanel() {
 	}
 	
 	updateAdminPanel();
-	//gapi.hangout.onEnabledParticipantsChanged.add(participantsChangedHandler());
+	gapi.hangout.onEnabledParticipantsChanged.add(participantsChangedHandler);
 
 	$('#admin')
 		.css('visibility', 'visible');
 }
 
 function participantsChangedHandler() {
-	if (hasGameStarted()) {
-		logger("Game has already started - participants changing has no effect")
+	if (hasGameStarted() || !isAdmin()) {
+		logger("Game has already started or I am not Admin")
 		return;
 	}
 	updateAdminPanel();
