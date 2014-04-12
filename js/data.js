@@ -1,10 +1,10 @@
 (function(window) {
+'use strict';
 
-if (!window.HangoutsDeception) {
-	window.HangoutsDeception = {};
-}
+var data = window.HangoutsDeception || {};
+window.HangoutsDeception = data;
 
-window.HangoutsDeception.teams = {
+data.teams = {
 	bastion: {
 		id: "bastion",
 		name: "The Bastion",
@@ -19,14 +19,14 @@ window.HangoutsDeception.teams = {
 	}
 };
 
-window.HangoutsDeception.perceivedAs: {
+data.perceivedAs = {
 	purple: "purple",
 	red: "red",
 	yellow: "red",
 	orange: "red"
 };
 
-window.HangoutsDeception.roles: {
+data.roles = {
 	sentinel: {
 		id: "sentinel",
 		name: "Sentinel",
@@ -93,6 +93,6 @@ window.HangoutsDeception.roles: {
 	}
 };
 
-window.HangoutsDeception.dataLoaded = true;
+data.dataLoaded = true;
 
 }(window));
