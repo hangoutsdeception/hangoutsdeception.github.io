@@ -210,7 +210,7 @@ function showAdminPanel() {
 	}
 	
 	updateAdminPanel();
-	gapi.hangout.onEnabledParticipantsChanged.add(participantsChangedHandler());
+	//gapi.hangout.onEnabledParticipantsChanged.add(participantsChangedHandler());
 
 	$('#admin')
 		.css('visibility', 'visible');
