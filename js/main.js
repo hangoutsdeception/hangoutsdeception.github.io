@@ -356,18 +356,30 @@ function getSelectedRoles() {
 	var ret = {};
 
 	$.each(teams(), function(id) {
-		ret[id] = extractSelectedRoles(id + 'Roles');
+		ret[id] = extractSelectedRoles(id);
 	});
 
 	return ret;
 }
 
-function extractSelectedRoles(name) {
-	return $(root).find('[data-name="' + name + '"] :checked')
+function extractSelectedRoles(teamId) {
+	var ret = $(root).find('[data-name="' + teamId + 'Roles"] :checked')
 		.map(function() {
 			return $(this).attr('name');
 		})
 		.get();
+
+	ret.push(getFillerRole(teamId));
+
+	return ret;
+}
+
+function getFillerRole(teamId) {
+	return getTeam(teamId).members
+		.filter(function(roleId) {
+			var role = getRole(roleId);
+			return role && role.allowsMultiple;
+		});
 }
 
 function getPlayerRoleMap() {
@@ -385,6 +397,10 @@ function teams() {
 
 function roles() {
 	return (window.HangoutsDeception && window.HangoutsDeception.roles) || {};
+}
+
+function getTeam() {
+	return teams()[id];
 }
 
 function getRole(id) {
