@@ -1,6 +1,43 @@
 hangoutsdeception.github.io
 ===========================
 
+
+### Teams
+
+| Name | Description |
+| --- | --- |
+| The Bastion | The bastion of men |
+| The Legion | The legion of hell |
+
+
+### Roles
+
+| Role | Alignment | Is | Knows |
+| --- | --- | --- | --- |
+| Sentinel | Bastion | | |
+| Oracle * | Bastion | purple | red, yellow |
+| Paladin | Bastion | | purple |
+| Wraith | Legion | red | red, orange |
+| Azazel * | Legion | red | red, orange |
+| Succubus + | Legion | red, purple | red, orange |
+| Lucifer + | Legion | orange | red |
+| Lilith  + | Legion | orange, purple | red |
+| Zombie | Legion | yellow | |
+
+`* Oracle XNOR Azazel`
+`+ NOT ( Lilith AND ( Succubus OR Lucifer ) )`
+
+
+### Tags
+
+| Is | Perceived As |
+| --- | --- |
+| purple | purple |
+| red | red |
+| yellow | red |
+| orange | red |
+
+
 ### Keys required to seal portals
 
 | Players | Good | Bad | | Portal 1 | Portal 2 | Portal 3 | Portal 4 | Portal 5 |
@@ -12,23 +49,5 @@ hangoutsdeception.github.io
 | 9 | 6 | 3 | | 3 | 4 | 4 | 5 * | 5 |
 | 10 | 6 | 4 | | 3 | 4 | 4 | 5 * | 5 |
 
-`& all good required to seal portal`
+`& perfect Bastion selection required to seal portal`
 `* 1 missing key will not prevent sealing`
-
-
-### Roles
-
-| Role | Alignment | Role colors | Can see colors |
-| --- | --- | --- | --- |
-| Sentinel | Good | blue | |
-| Oracle * | Good | blue, purple | red, yellowASred |
-| Paladin | Good | blue | purple |
-| Wraith | Bad | red | red, orangeASred |
-| Azazel * | Bad | red | red, orangeASred |
-| Succubus | Bad | red, purple | red, orangeASred |
-| Lucifer + | Bad | orange | red |
-| Lilith  + | Bad | orange, purple | red |
-| Zombie | Bad | yellow | |
-
-`* Oracle XNOR Azazel`
-`+ Lucifer NAND Lilith`
